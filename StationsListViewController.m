@@ -30,6 +30,7 @@
     [super viewDidLoad];
     //alloc init required objects
     [self startUp];
+    [self.parser getBikeInformationFromUrl];
     
 
 }
@@ -90,6 +91,7 @@
 
 #pragma mark - Parser Delegate Methods
 
+//get called by parser getBikeInformationFromUrl
 -(void)fetchedBikes:(NSMutableArray *)bikeArray
 {
     self.bikesMArray = bikeArray;
@@ -119,15 +121,17 @@
 
 #pragma mark - Helper Methods
 
+//alloc init any property and set delegates
 -(void)startUp
 {
     self.bikesMArray = [NSMutableArray new];
     self.parser = [Parser new];
     self.parser.delegate = self;
     self.searchBar.delegate = self;
-    [self.parser getBikeInformationFromUrl];
 }
 
+//Helper method to get distance from station and sort the array based on distance
+//Get called every time user updates location by didUpdateLocations
 -(void)getDistanceAndSortArray
 {
     for (Bike * bike in self.bikesMArray) {
@@ -142,6 +146,8 @@
 
 }
 
+//start tracking user location
+//Get called by fetchedBikes to make sure that we have stations loaded in the array
 -(void)loadMyLocation
 {
     self.myLocationManager = [CLLocationManager new];
@@ -157,6 +163,7 @@
 {
     MapViewController * mvc = segue.destinationViewController;
     mvc.currentBike = [self.bikesMArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+
 }
 
 @end
