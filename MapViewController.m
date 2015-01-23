@@ -145,9 +145,8 @@
     annotation.subtitle = [NSString stringWithFormat:@"Available Bikes: %@", self.currentBike.availableBikes];
     annotation.coordinate = coordinate;
     [self.mapView addAnnotation:annotation];
-    CLLocationCoordinate2D centerCoordinate = coordinate;
     MKCoordinateSpan span = MKCoordinateSpanMake(0.05, 0.05);
-    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, span);
+    MKCoordinateRegion region = MKCoordinateRegionMake(coordinate, span);
     [self.mapView setRegion:region animated:YES];
 }
 @end

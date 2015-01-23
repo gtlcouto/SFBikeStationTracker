@@ -162,7 +162,13 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     MapViewController * mvc = segue.destinationViewController;
-    mvc.currentBike = [self.bikesMArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    if (self.isFiltered) {
+       mvc.currentBike = [self.filteredBikesMArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
+    else {
+        mvc.currentBike = [self.bikesMArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
+
 
 }
 
